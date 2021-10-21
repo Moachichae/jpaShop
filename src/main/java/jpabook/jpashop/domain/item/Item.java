@@ -13,9 +13,11 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
 @Getter
+@Setter
 public abstract class Item {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "item_id")
     private Long id;
 
@@ -32,18 +34,19 @@ public abstract class Item {
     /**
      * stock 증가
      */
-    public void addStock(int quantity){
+    public void addStock(int quantity) {
         this.stockQuantity += quantity;
     }
 
     /**
      * stock 감소
      */
-    public void removeStock(int quantity){
+    public void removeStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
-        if(restStock < 0){
+        if (restStock < 0) {
             throw new NotEnoughStockException("need more stock");
         }
+        this.stockQuantity = restStock;
     }
 
 
