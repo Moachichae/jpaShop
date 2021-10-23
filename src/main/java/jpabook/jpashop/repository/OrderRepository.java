@@ -3,6 +3,7 @@ package jpabook.jpashop.repository;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -11,7 +12,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class OrderRepository {
@@ -60,6 +61,7 @@ public class OrderRepository {
         TypedQuery<Order> query = em.createQuery(jpql, Order.class)
                 .setMaxResults(1000); //최대 1000건
         if (orderSearch.getOrderStatus() != null) {
+            query = query.setParameter("status", orderSearch.getOrderStatus());
         }
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             query = query.setParameter("name", orderSearch.getMemberName());

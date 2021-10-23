@@ -29,9 +29,9 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY) //부모
     @JoinColumn(name = "delivery_id")
-    private Delivery delivery;
+    private Delivery delivery; // 자식
 
     private LocalDateTime orderDate; //주문시간
 
