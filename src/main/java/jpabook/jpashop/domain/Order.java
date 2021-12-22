@@ -31,7 +31,7 @@ public class Order {
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY) //부모
     @JoinColumn(name = "delivery_id")
-    private Delivery delivery; // 자식
+    private Delivery delivery; // 자식 (order를 조회할 일이 많으므로 fk를 order에 둔다.)
 
     private LocalDateTime orderDate; //주문시간
 
