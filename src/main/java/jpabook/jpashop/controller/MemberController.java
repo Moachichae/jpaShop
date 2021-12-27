@@ -26,8 +26,8 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(@Valid MemberForm form, BindingResult result) { //깔금하게 화면에 맞는 form 데이터 새로 생성
-
+    public String create(@Valid MemberForm form, BindingResult result) {
+     // 에러가 실행 되어도 bindingResult에 에러값이 넘어가고 컨트롤러가 실행됌
         if (result.hasErrors())
             return "members/createMemberForm";
 
