@@ -66,6 +66,9 @@ public class OrderRepository {
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             query = query.setParameter("name", orderSearch.getMemberName());
         }
+        for (Order order: query.getResultList()){
+            System.out.println("order = " + order);
+        }
         return query.getResultList();
     }
 
@@ -93,6 +96,7 @@ public class OrderRepository {
         }
         cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000); //최대 1000건
+
         return query.getResultList();
     }
 

@@ -38,7 +38,7 @@ public class OrderController {
     @PostMapping("/order")
     public String order(@RequestParam("memberId") Long memberId,
                         @RequestParam("itemId") Long itemId,
-                        @RequestParam("count") int count){ //html option name 과 매칭되서 넘어옴
+                        @RequestParam("count") int count){ //html form name 과 매칭되서 넘어옴
         orderService.order(memberId, itemId, count);
         return "redirect:/orders";
     }

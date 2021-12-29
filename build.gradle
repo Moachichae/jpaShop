@@ -24,7 +24,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation:2.5.5'
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
 	implementation 'org.springframework.boot:spring-boot-devtools:2.5.5' //restartedMain 재시작 안하고 리컴파일만으로 교체가능
-	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1")
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
+
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	runtimeOnly 'com.h2database:h2:1.4.200'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
