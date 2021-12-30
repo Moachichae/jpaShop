@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 @Repository
 @RequiredArgsConstructor
@@ -19,17 +20,17 @@ public class OrderRepository {
 
     private final EntityManager em;
 
-    public void save(Order order){
+    public void save(Order order) {
         em.persist(order);
     }
 
-    public Order findOne(Long id){
+    public Order findOne(Long id) {
         return em.find(Order.class, id);
     }
 
-    public List<Order> findAll(OrderSearch orderSearch){
+    public List<Order> findAll(OrderSearch orderSearch) {
         return em.createQuery("select o from Order o join o.member m "
-                       , Order.class)
+                        , Order.class)
                 .setMaxResults(1000) //최대 1000건
                 .getResultList();
     }
@@ -66,9 +67,7 @@ public class OrderRepository {
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             query = query.setParameter("name", orderSearch.getMemberName());
         }
-        for (Order order: query.getResultList()){
-            System.out.println("order = " + order);
-        }
+
         return query.getResultList();
     }
 
@@ -98,6 +97,35 @@ public class OrderRepository {
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000); //최대 1000건
 
         return query.getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery() { //재사용할 확률이 높다. 넘어오는 데이터가 많다.
+        return em.createQuery(
+                        "select  o from Order o" +
+                                " join fetch o.member m" +
+                                " join  fetch  o.delivery d", Order.class)
+                .getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                        "select o from Order o" +
+                                " join fetch o.member m" +
+                                " join  fetch  o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                        "select distinct o from Order o" +
+                                " join fetch o.member m" +
+                                " join fetch o.delivery d" +
+                                " join fetch o.orderItems oi" +
+                                " join fetch oi.item i", Order.class)
+                .getResultList();
+
     }
 
 }
