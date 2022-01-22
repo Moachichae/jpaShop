@@ -57,7 +57,7 @@ public class OrderSimpleApiController {
     }
 
     @GetMapping("/api/v3/simple-orders")
-    public List<SimpleOrderDto> ordersV3() {
+    public List<SimpleOrderDto> ordersV3() { //데이터를 가져온 후 컨트롤러에서 가공후 보냄
         return orderRepository.findAllWithMemberDelivery().stream()
                 .map(SimpleOrderDto::new)
                 .collect(Collectors.toList());

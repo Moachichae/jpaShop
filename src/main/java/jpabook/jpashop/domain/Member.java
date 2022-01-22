@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Path;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,6 +29,5 @@ public class Member {
     @JsonIgnore
     @OneToMany(mappedBy = "member") //나는 거울
     private List<Order> orders = new ArrayList<>(); // 하이버네이트의 best 선택
-
 
 }
